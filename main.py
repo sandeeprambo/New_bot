@@ -4,11 +4,12 @@ from discord import app_commands
 import asyncio
 import os
 from dotenv import load_dotenv
+from keep_alive import keep_alive  # Keeps the bot alive
 
-load_dotenv()  # Load variables from .env
+load_dotenv()  # Load .env variables
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-SCOREBOARD_CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
+SCOREBOARD_CHANNEL_ID = int(os.getenv("SCOREBOARD_CHANNEL_ID"))
 
 GOALS = {
     "train_heist": {"label": "Train Heist", "target": 2, "count": 0},
@@ -123,4 +124,6 @@ async def resetweek(interaction: discord.Interaction):
     await update_scoreboard(bot)
     await interaction.response.send_message("\U0001F501 Weekly goals have been reset!")
 
+# Keep the bot alive
+keep_alive()
 bot.run(TOKEN)
